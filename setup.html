@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Match Setup - Howzatt! Cricket Scorekeeper</title>
+    <!-- Link to the CSS file for styling this page -->
+    <link rel="stylesheet" href="setup.css">
+    <!-- 
+      Link to the main JavaScript file. 
+      'defer' attribute is crucial: It ensures the browser downloads the script 
+      alongside the HTML but waits to execute it until *after* the HTML 
+      document is fully parsed and the DOM (Document Object Model) is built. 
+      This prevents JavaScript errors that would occur if the script tried to 
+      find or manipulate HTML elements that haven't been loaded yet.
+    -->
+    <script src="score.js" defer></script>
+</head>
+<body>
+
+   
+    <main class="setup-container">
+        <h1>Match Setup</h1>
+
+        <form id="setupForm" action="javascript:void(0);"> <!-- Prevent default submission -->
+          
+            <div class="form-group">
+                <label for="team1Name">Team 1 Name:</label>
+                
+                <input type="text" id="team1Name" name="team1Name" required placeholder="Enter Team 1 Name">
+            </div>
+
+            <!-- Team 2 Name Input -->
+            <div class="form-group">
+                <label for="team2Name">Team 2 Name:</label>
+                <input type="text" id="team2Name" name="team2Name" required placeholder="Enter Team 2 Name">
+            </div>
+
+            <!-- Match Format Selection -->
+            <div class="form-group">
+                <label for="matchFormat">Select Match Format:</label>
+                <!-- 
+                  A dropdown (<select>) is suitable for predefined choices.
+                  'required' ensures a selection is made.
+                  The 'value' attribute of the selected 'option' is what JavaScript will capture.
+                  Includes the mandatory 2-over format plus T20/ODI extras.
+                -->
+                <select id="matchFormat" name="matchFormat" required>
+                    <option value="" disabled selected>--Select Format--</option>
+                    <option value="2">Basic (2 Overs)</option> <!-- Mandatory Base Requirement -->
+                    <option value="20">T20 (20 Overs)</option> <!-- Extra Credit -->
+                    <option value="50">ODI (50 Overs)</option> <!-- Extra Credit -->
+                </select>
+            </div>
+
+            <!-- Toss Winner Selection -->
+            <div class="form-group">
+                <label for="tossWinner">Toss Winner:</label>
+                <!-- 
+                  This dropdown will be dynamically populated by score.js 
+                  once team names are entered, ensuring the options match the teams.
+                  Initial placeholder shown until JS runs.
+                -->
+                <select id="tossWinner" name="tossWinner" required>
+                    <option value="" disabled selected>--Enter Team Names First--</option>
+                    <!-- Options populated by JavaScript -->
+                </select>
+            </div>
+
+            <!-- Toss Decision Selection -->
+            <div class="form-group">
+                <label for="tossDecision">Toss Decision:</label>
+                <select id="tossDecision" name="tossDecision" required>
+                    <option value="" disabled selected>--Select Decision--</option>
+                    <option value="Bat">Bat</option>
+                    <option value="Bowl">Bowl</option>
+                </select>
+            </div>
+
+            <!-- Start Match Button -->
+            <div class="form-group">
+                 <!-- 
+                  Using type="button" prevents the default form submission behavior,
+                  which would cause a page reload. Instead, we'll attach a JavaScript 
+                  click listener to this button ('id="startMatchButton"') to handle 
+                  the logic of saving data and navigating.
+                -->
+                <button type="button" id="startMatchButton">Start Match</button>
+            </div>
+        </form>
+    </main>
+
+</body>
+</html>

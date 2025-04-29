@@ -1,0 +1,345 @@
+/* ======================================== */
+/* Variables & Basic Reset                  */
+/* ======================================== */
+
+/* Define reusable color variables for the dark theme */
+/* NOTE: In a larger project, these would ideally be in a shared base CSS file */
+:root {
+    --bg-color: #1a1a1a;         /* Page background */
+    --surface-color: #2b2b2b;    /* Card/container backgrounds */
+    --text-color: #e0e0e0;        /* Main text color */
+    --text-muted-color: #a0a0a0;   /* Slightly dimmer text for non-critical info */
+    --primary-color: #007bff;    /* Accent color for buttons, highlights */
+    --border-color: #444;       /* Borders for containers, tables */
+    --input-bg: #333;           /* Background for potential future inputs */
+    --button-bg: var(--primary-color); /* Button background */
+    --button-hover-bg: #0056b3;  /* Button background on mouse hover */
+    --button-text-color: white;   /* Text color for primary buttons */
+    --danger-color: #dc3545;     /* Color for wicket/out indicators (optional) */
+    --highlight-bg: #3a3a3a;    /* Background for table header/footer */
+}
+
+/* Basic reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ======================================== */
+/* Body Styling                             */
+/* ======================================== */
+
+body {
+    font-family: sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    padding: 20px; /* Add some space around the edges */
+}
+
+/* ======================================== */
+/* Live Container Styling                   */
+/* ======================================== */
+
+/* Styles the main wrapper for the live scoring view */
+.live-container {
+    max-width: 900px; /* Allow slightly wider view for scoring details */
+    margin: 20px auto; /* Center horizontally */
+    padding: 20px;
+    background-color: var(--surface-color); /* Use surface color for main content area */
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    display: grid; /* Use grid for layout flexibility */
+    grid-template-columns: 1fr 1fr; /* Default to two columns */
+    grid-template-areas:
+        "header header"
+        "batting bowling"
+        "controls controls"
+        "commentary commentary"
+        "footer footer";
+    gap: 20px; /* Space between grid items */
+}
+
+/* Adjust grid layout for smaller screens */
+@media (max-width: 768px) {
+    .live-container {
+        grid-template-columns: 1fr; /* Stack elements in a single column */
+        grid-template-areas:
+            "header"
+            "batting"
+            "bowling"
+            "controls"
+            "commentary"
+            "footer";
+    }
+}
+
+
+/* ======================================== */
+/* Header Styling                           */
+/* ======================================== */
+
+/* Style the top header section containing the main score */
+.score-header {
+    grid-area: header; /* Place in the 'header' grid area */
+    text-align: center;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--border-color); /* Separator line */
+}
+
+/* Style the main score display text */
+#scoreDisplay {
+    font-size: 1.8rem; /* Larger font for main score */
+    margin-bottom: 5px;
+}
+
+/* Style the container for run rates */
+.run-rates {
+    font-size: 0.9rem;
+    color: var(--text-muted-color);
+}
+
+/* ======================================== */
+/* Batting/Bowling Card Styling             */
+/* ======================================== */
+
+/* Common styles for the batting and bowling sections */
+.batting-card, .bowling-card {
+    background-color: var(--bg-color); /* Slightly darker than main surface */
+    padding: 15px;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+}
+
+.batting-card {
+    grid-area: batting; /* Place in grid */
+}
+
+.bowling-card {
+    grid-area: bowling; /* Place in grid */
+}
+
+/* Style headings within the cards */
+.batting-card h3, .bowling-card h3 {
+    text-align: center;
+    margin-bottom: 15px;
+    color: var(--primary-color); /* Use accent color for card titles */
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 5px;
+}
+
+/* ======================================== */
+/* Table Styling                            */
+/* ======================================== */
+
+/* General table styles */
+table {
+    width: 100%;
+    border-collapse: collapse; /* Remove spacing between table cells */
+    margin-bottom: 10px; /* Space below tables */
+}
+
+/* Table header and cell styling */
+th, td {
+    padding: 8px 10px; /* Padding within cells */
+    text-align: left; /* Align text to the left */
+    border-bottom: 1px solid var(--border-color); /* Horizontal lines */
+}
+
+/* Table header specific styling */
+thead th {
+    background-color: var(--highlight-bg); /* Dark highlight for headers */
+    color: var(--text-color);
+    font-weight: bold;
+    text-align: center; /* Center align header text */
+}
+
+/* Center align numerical data in table cells */
+td:nth-child(n+3), /* Target 3rd column onwards (Runs, Balls, 4s, 6s, SR, Overs, etc.) */
+th:nth-child(n+3) {
+    text-align: center;
+}
+td:nth-child(2) { /* Center align status/maidens */
+     text-align: center;
+}
+
+/* Style for the striker/non-striker status indicator */
+.status-indicator {
+    font-weight: bold;
+    color: var(--primary-color); /* Make the asterisk stand out */
+}
+
+/* Style for the current over display */
+.current-over {
+    margin-top: 10px;
+    padding: 8px;
+    background-color: var(--highlight-bg);
+    border-radius: 4px;
+    font-size: 0.9rem;
+    text-align: center;
+}
+.current-over span {
+    font-family: monospace; /* Use monospace for consistent spacing of over events */
+    margin-left: 5px;
+    word-spacing: 5px; /* Space out events like '1 0 4 Wd' */
+}
+
+
+/* ======================================== */
+/* Scoring Controls Styling                 */
+/* ======================================== */
+
+/* Style the section containing scoring buttons */
+.scoring-controls {
+    grid-area: controls; /* Place in grid */
+    background-color: var(--bg-color); /* Match card background */
+    padding: 15px;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+}
+
+/* Style the heading for the controls section */
+.scoring-controls h3 {
+    text-align: center;
+    margin-bottom: 15px;
+    color: var(--primary-color);
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 5px;
+}
+
+/* Style the groups of buttons (runs, extras, wickets) */
+.button-group {
+    margin-bottom: 15px;
+    display: flex; /* Arrange buttons horizontally */
+    flex-wrap: wrap; /* Allow buttons to wrap to next line if needed */
+    gap: 8px; /* Space between buttons */
+    align-items: center; /* Align items vertically */
+}
+
+.button-group h4 {
+     width: 60px; /* Fixed width for labels like 'Runs:' */
+     margin-right: 10px;
+     text-align: right;
+     font-size: 0.9rem;
+     color: var(--text-muted-color);
+}
+
+/* Style individual scoring buttons */
+.scoring-button {
+    padding: 8px 15px;
+    font-size: 1rem;
+    background-color: var(--button-bg);
+    color: var(--button-text-color);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    min-width: 50px; /* Ensure minimum width */
+    text-align: center;
+}
+
+/* Hover effect for scoring buttons */
+.scoring-button:hover {
+    background-color: var(--button-hover-bg);
+}
+
+/* Specific styling for wicket/run out buttons (optional) */
+.button-group.wickets .scoring-button {
+    background-color: var(--danger-color); /* Red color for dismissals */
+}
+.button-group.wickets .scoring-button:hover {
+    background-color: #a71d2a; /* Darker red on hover */
+}
+
+/* Style for potential run out controls that appear */
+.run-out-controls {
+    display: inline-flex; /* Keep related controls together */
+    gap: 5px;
+    align-items: center;
+    margin-left: 10px; /* Space after Wicket button */
+}
+.run-out-controls label,
+.run-out-controls input,
+.run-out-controls select {
+    font-size: 0.9rem;
+}
+.run-out-controls input,
+.run-out-controls select {
+     padding: 4px;
+     background-color: var(--input-bg);
+     color: var(--text-color);
+     border: 1px solid var(--border-color);
+     border-radius: 3px;
+}
+
+/* ======================================== */
+/* Commentary Feed Styling                  */
+/* ======================================== */
+
+/* Style the commentary section */
+.commentary-feed {
+    grid-area: commentary; /* Place in grid */
+    background-color: var(--bg-color); /* Match card background */
+    padding: 15px;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+}
+
+/* Style the heading for the commentary section */
+.commentary-feed h3 {
+    text-align: center;
+    margin-bottom: 10px;
+    color: var(--primary-color);
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 5px;
+}
+
+/* Style the box containing commentary text */
+.commentary-box {
+    height: 150px; /* Fixed height */
+    overflow-y: scroll; /* Enable vertical scrolling if content exceeds height */
+    border: 1px solid var(--border-color);
+    padding: 10px;
+    background-color: var(--surface-color); /* Slightly lighter background for text area */
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+/* Style individual commentary lines */
+.commentary-box p {
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+    border-bottom: 1px dashed var(--border-color); /* Separator between entries */
+}
+.commentary-box p:last-child {
+    border-bottom: none; /* Remove border from the last entry */
+}
+
+/* ======================================== */
+/* Navigation Footer Styling                */
+/* ======================================== */
+
+/* Style the footer area */
+.navigation {
+    grid-area: footer; /* Place in grid */
+    text-align: center;
+    padding-top: 15px;
+    border-top: 1px solid var(--border-color); /* Separator line */
+}
+
+/* Style the navigation button */
+#gotoScorecardButton {
+    padding: 10px 25px;
+    font-size: 1rem;
+    background-color: var(--button-bg);
+    color: var(--button-text-color);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+#gotoScorecardButton:hover {
+    background-color: var(--button-hover-bg);
+}

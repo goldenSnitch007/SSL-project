@@ -1,0 +1,160 @@
+/* ======================================== */
+/* Variables & Basic Reset                  */
+/* ======================================== */
+
+/* Define reusable color variables for the dark theme */
+/* Consistent with previous pages */
+:root {
+    --bg-color: #1a1a1a;         /* Page background */
+    --surface-color: #2b2b2b;    /* Main container background */
+    --text-color: #e0e0e0;        /* Main text color */
+    --text-muted-color: #a0a0a0;   /* Dimmer text */
+    --primary-color: #007bff;    /* Accent color */
+    --border-color: #444;       /* Borders */
+    --highlight-bg: #3a3a3a;    /* Background for highlighted areas */
+    --button-bg: var(--primary-color);
+    --button-hover-bg: #0056b3;
+    --button-text-color: white;
+    --success-color: #28a745;    /* Color for highlighting winner/success */
+    --tie-color: #ffc107;       /* Color for highlighting a tie */
+}
+
+/* Basic reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ======================================== */
+/* Body Styling                             */
+/* ======================================== */
+
+body {
+    font-family: sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    padding: 20px;
+    display: flex; /* Use flexbox to easily center content */
+    justify-content: center;
+    align-items: center;
+    min-height: 90vh; /* Ensure body takes up height for centering */
+}
+
+/* ======================================== */
+/* Summary Container Styling                */
+/* ======================================== */
+
+/* Styles the main wrapper for the summary view */
+.summary-container {
+    max-width: 600px; /* Moderate width for summary */
+    width: 100%; /* Take available width up to max-width */
+    padding: 30px 40px;
+    background-color: var(--surface-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6); /* Slightly stronger shadow */
+    text-align: center; /* Center align text within the container */
+}
+
+/* Style the main heading */
+.summary-container h1 {
+    margin-bottom: 30px;
+    color: var(--text-color);
+    font-size: 2rem;
+}
+
+/* ======================================== */
+/* Match Result Display Styling             */
+/* ======================================== */
+
+/* Styles the main result display area */
+.match-result {
+    background-color: var(--highlight-bg); /* Highlight background */
+    padding: 25px;
+    margin-bottom: 25px;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+}
+
+/* Style the result text itself */
+.match-result p {
+    font-size: 1.4rem; /* Larger font for the result */
+    font-weight: bold;
+    color: var(--text-color); /* Default color */
+}
+
+/* Specific styles for winner/tie - JS will add these classes */
+.match-result.winner {
+    border-left: 5px solid var(--success-color); /* Add colored border */
+}
+.match-result.winner p {
+    color: var(--success-color); /* Highlight winner text */
+}
+
+.match-result.tie {
+    border-left: 5px solid var(--tie-color); /* Add colored border */
+}
+.match-result.tie p {
+    color: var(--tie-color); /* Highlight tie text */
+}
+
+
+/* ======================================== */
+/* Final Scores Styling (Optional)          */
+/* ======================================== */
+
+.final-scores {
+    margin-bottom: 30px;
+    font-size: 1rem;
+    color: var(--text-muted-color);
+}
+
+.final-scores p {
+    margin-bottom: 5px;
+}
+
+/* ======================================== */
+/* Reset Button Styling                     */
+/* ======================================== */
+
+.reset-section {
+    margin-bottom: 20px; /* Space before optional footer link */
+}
+
+/* Style the 'Start New Match' button */
+#resetMatchButton {
+    padding: 12px 30px; /* Make button prominent */
+    font-size: 1.1rem;
+    font-weight: bold;
+    background-color: var(--button-bg);
+    color: var(--button-text-color);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+#resetMatchButton:hover {
+    background-color: var(--button-hover-bg);
+}
+
+/* ======================================== */
+/* Navigation Footer Styling (Optional)     */
+/* ======================================== */
+
+.navigation-footer {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid var(--border-color);
+}
+
+.navigation-footer a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.navigation-footer a:hover {
+    text-decoration: underline;
+}

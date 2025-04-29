@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Match Summary - Howzatt! Cricket Scorekeeper</title>
+    <!-- Link to specific CSS for this page -->
+    <link rel="stylesheet" href="summary.css">
+    <!-- Link to the main JavaScript file -->
+    <script src="score.js" defer></script>
+</head>
+<body>
+
+    <!-- Main container for the summary view -->
+    <main id="summaryContainer" class="summary-container">
+
+        <h1>Match Summary</h1>
+
+        <!-- Area to display the final match result -->
+        <div id="matchResult" class="match-result">
+            <!-- Result will be populated by JS -->
+            <!-- Example: <p>Team A won by 25 runs!</p> -->
+            <!-- Example: <p>Team B won by 5 wickets (with 3 balls remaining)!</p> -->
+             <!-- Example: <p>Match Tied!</p> -->
+            <p>Calculating result...</p>
+        </div>
+
+        <!-- Optional: Display final scores briefly -->
+        <div class="final-scores">
+            <p id="finalScore1">Team A: Loading...</p>
+            <p id="finalScore2">Team B: Loading...</p>
+        </div>
+
+
+        <!-- Button to reset and start a new match -->
+        <div class="reset-section">
+            <button id="resetMatchButton">Start New Match</button>
+        </div>
+
+        <!-- Optional: Link back to the full scorecard -->
+         <div class="navigation-footer">
+             <a href="scorecard.html">View Full Scorecard</a>
+         </div>
+
+    </main> <!-- End of .summary-container -->
+
+</body>
+</html>

@@ -1,0 +1,223 @@
+/* ======================================== */
+/* Variables & Basic Reset                  */
+/* ======================================== */
+
+/* Define reusable color variables for the dark theme */
+/* Consistent with live.css */
+:root {
+    --bg-color: #1a1a1a;         /* Page background */
+    --surface-color: #2b2b2b;    /* Main container background */
+    --text-color: #e0e0e0;        /* Main text color */
+    --text-muted-color: #a0a0a0;   /* Dimmer text */
+    --primary-color: #007bff;    /* Accent color */
+    --border-color: #444;       /* Borders */
+    --highlight-bg: #3a3a3a;    /* Background for table header/footer */
+    --button-bg: var(--primary-color);
+    --button-hover-bg: #0056b3;
+    --button-text-color: white;
+}
+
+/* Basic reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ======================================== */
+/* Body Styling                             */
+/* ======================================== */
+
+body {
+    font-family: sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    padding: 20px;
+}
+
+/* ======================================== */
+/* Scorecard Container Styling              */
+/* ======================================== */
+
+/* Styles the main wrapper for the scorecard view */
+.scorecard-container {
+    max-width: 800px; /* Suitable width for scorecard tables */
+    margin: 20px auto; /* Center horizontally */
+    padding: 25px;
+    background-color: var(--surface-color);
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Style the main heading */
+.scorecard-container h1 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: var(--text-color);
+}
+
+/* ======================================== */
+/* Navigation Header Styling                */
+/* ======================================== */
+
+/* Styles the div containing the back button */
+.navigation-header {
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* Style the 'Back to Live' button */
+#gotoLiveButton {
+    padding: 8px 15px;
+    font-size: 0.9rem;
+    background-color: var(--button-bg);
+    color: var(--button-text-color);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+#gotoLiveButton:hover {
+    background-color: var(--button-hover-bg);
+}
+
+/* ======================================== */
+/* Innings Section Styling                  */
+/* ======================================== */
+
+/* Styles each innings section */
+.innings-section {
+    margin-bottom: 30px; /* Space between innings sections */
+    padding-bottom: 20px;
+    border-bottom: 2px solid var(--primary-color); /* Stronger separator */
+}
+.innings-section:last-child {
+    border-bottom: none; /* Remove border from the last section */
+    margin-bottom: 0;
+}
+
+
+/* Style the heading for each innings */
+.innings-section h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: var(--text-color);
+    text-align: center;
+}
+
+/* ======================================== */
+/* Table Wrapper & Headings Styling         */
+/* ======================================== */
+
+/* Styles the div wrapping each batting/bowling table */
+.scorecard-table-wrapper {
+    margin-bottom: 20px;
+    background-color: var(--bg-color); /* Slightly darker background for tables */
+    padding: 15px;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+}
+
+/* Style the 'Batting' / 'Bowling' headings above tables */
+.scorecard-table-wrapper h3 {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    color: var(--primary-color); /* Use accent color */
+    text-align: center;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 8px;
+}
+
+/* ======================================== */
+/* Table Styling (Batting & Bowling)        */
+/* ======================================== */
+
+/* General table styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* Table header and cell styling */
+th, td {
+    padding: 9px 12px; /* Slightly more padding */
+    text-align: left;
+    border-bottom: 1px solid var(--border-color); /* Horizontal lines */
+    font-size: 0.95rem; /* Slightly adjust font size */
+}
+
+/* Remove bottom border from last row in tbody */
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Table header specific styling */
+thead th {
+    background-color: var(--highlight-bg); /* Dark highlight for headers */
+    color: var(--text-color);
+    font-weight: bold;
+    white-space: nowrap; /* Prevent headers from wrapping */
+}
+
+/* Table footer specific styling */
+tfoot td {
+    background-color: var(--highlight-bg); /* Use same highlight for footer */
+    font-weight: bold;
+    border-top: 2px solid var(--border-color); /* Stronger separator for footer */
+}
+
+/* Alignment adjustments for specific columns */
+/* Batter Name & Dismissal: Left aligned (default) */
+/* Runs, Balls, 4s, 6s, SR: Center aligned */
+td:nth-child(n+3), /* Targets 3rd col onwards in batting */
+th:nth-child(n+3) {
+    text-align: center;
+}
+/* Bowling: Overs, Maidens, Runs, Wkts, Econ: Center aligned */
+#innings1BowlingTable td:nth-child(n+2),
+#innings1BowlingTable th:nth-child(n+2),
+#innings2BowlingTable td:nth-child(n+2),
+#innings2BowlingTable th:nth-child(n+2) {
+     text-align: center;
+}
+/* Left align bowler name */
+#innings1BowlingTable td:first-child,
+#innings1BowlingTable th:first-child,
+#innings2BowlingTable td:first-child,
+#innings2BowlingTable th:first-child {
+     text-align: left;
+}
+
+/* Specific styling for dismissal column */
+td:nth-child(2) { /* Second column (Dismissal) */
+    font-style: italic;
+    color: var(--text-muted-color);
+    font-size: 0.9rem;
+}
+
+/* ======================================== */
+/* Fall of Wickets Styling                  */
+/* ======================================== */
+
+/* Styles the fall of wickets section */
+.fow-section {
+    margin-top: 15px;
+    padding: 10px;
+    background-color: var(--bg-color);
+    border-radius: 4px;
+    border: 1px dashed var(--border-color); /* Dashed border */
+}
+
+.fow-section h4 {
+    margin-bottom: 8px;
+    font-size: 1rem;
+    color: var(--text-muted-color);
+}
+
+.fow-section p {
+    font-size: 0.9rem;
+    line-height: 1.5;
+}

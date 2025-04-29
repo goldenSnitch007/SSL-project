@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Scoring - Howzatt! Cricket Scorekeeper</title>
+    <!-- Link to specific CSS for this page -->
+    <link rel="stylesheet" href="live.css">
+    <!-- Link to the main JavaScript file -->
+    <script src="score.js" defer></script>
+</head>
+<body>
+
+    <!-- Main container for the live scoring interface -->
+    <div class="live-container">
+
+        <!-- Header Section: Displays overall match score -->
+        <header class="score-header">
+            <!-- This h2 will be updated by JS to show scores like: -->
+            <!-- Team A X/Y (O.B) vs Team B -->
+            <!-- Or Team B X/Y (O.B) vs Team A Z/W (T.O) Target: T -->
+            <h2 id="scoreDisplay">Loading Score...</h2>
+            <!-- Display CRR and RRR (visible only during 2nd innings) -->
+            <div id="runRates" class="run-rates" style="display: none;"> <!-- Initially hidden -->
+                 <span>CRR: <span id="currentRunRate">0.00</span></span>
+                 <span> | </span>
+                 <span>RRR: <span id="requiredRunRate">0.00</span></span>
+            </div>
+        </header>
+
+        <!-- Batting Scorecard Section -->
+        <section class="batting-card">
+            <h3>Batting</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Batter</th>
+                        <th>Status</th> <!-- Striker (*) or Non-Striker -->
+                        <th>Runs</th>
+                        <th>Balls</th>
+                        <th>4s</th>
+                        <th>6s</th>
+                        <th>SR</th>
+                    </tr>
+                </thead>
+                <tbody id="battingTableBody">
+                    <!-- Row for the Striker -->
+                    <tr id="strikerRow">
+                        <td id="strikerName">Batter 1</td>
+                        <td><span id="strikerStatus" class="status-indicator">*</span></td>
+                        <td id="strikerRuns">0</td>
+                        <td id="strikerBalls">0</td>
+                        <td id="strikerFours">0</td>
+                        <td id="strikerSixes">0</td>
+                        <td id="strikerSR">0.00</td>
+                    </tr>
+                    <!-- Row for the Non-Striker -->
+                    <tr id="nonStrikerRow">
+                        <td id="nonStrikerName">Batter 2</td>
+                        <td><span id="nonStrikerStatus" class="status-indicator"></span></td>
+                        <td id="nonStrikerRuns">0</td>
+                        <td id="nonStrikerBalls">0</td>
+                        <td id="nonStrikerFours">0</td>
+                        <td id="nonStrikerSixes">0</td>
+                        <td id="nonStrikerSR">0.00</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Bowling Scorecard Section -->
+        <section class="bowling-card">
+            <h3>Bowling</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Bowler</th>
+                        <th>Overs</th>
+                        <th>Maidens</th>
+                        <th>Runs</th>
+                        <th>Wkts</th>
+                        <th>Econ</th>
+                    </tr>
+                </thead>
+                <tbody id="bowlingTableBody">
+                    <!-- Row for the Current Bowler -->
+                    <tr id="bowlerRow">
+                        <td id="currentBowlerName">Bowler 1</td>
+                        <td id="bowlerOvers">0.0</td>
+                        <td id="bowlerMaidens">0</td>
+                        <td id="bowlerRuns">0</td>
+                        <td id="bowlerWickets">0</td>
+                        <td id="bowlerEconomy">0.00</td>
+                    </tr>
+                </tbody>
+            </table>
+             <!-- Display current over progress -->
+            <div class="current-over">
+                <strong>This Over:</strong>
+                <span id="overProgress"></span> <!-- e.g., 1 0 4 Wd 6 W -->
+            </div>
+        </section>
+
+        <!-- Scoring Buttons Section -->
+        <section class="scoring-controls">
+            <h3>Score Events</h3>
+            <div class="button-group runs">
+                <h4>Runs:</h4>
+                <button class="scoring-button" data-event-type="run" data-value="0">0</button>
+                <button class="scoring-button" data-event-type="run" data-value="1">1</button>
+                <button class="scoring-button" data-event-type="run" data-value="2">2</button>
+                <button class="scoring-button" data-event-type="run" data-value="3">3</button>
+                <button class="scoring-button" data-event-type="run" data-value="4">4</button>
+                <!-- No 5 runs button as per spec, but easy to add if desired -->
+                <button class="scoring-button" data-event-type="run" data-value="6">6</button>
+            </div>
+            <div class="button-group extras">
+                <h4>Extras (Extra Credit):</h4>
+                <button class="scoring-button" data-event-type="extra" data-value="Wd">Wide</button>
+                <button class="scoring-button" data-event-type="extra" data-value="Nb">No Ball</button>
+                <!-- For Byes/Leg Byes, we might need secondary buttons or input for runs -->
+                <button class="scoring-button" data-event-type="extra" data-value="B">Bye</button>
+                <button class="scoring-button" data-event-type="extra" data-value="Lb">Leg Bye</button>
+                <!-- Simple implementation: Assume 1 run for B/Lb initially -->
+                <!-- Advanced: Clicking B/Lb could reveal 1, 2, 3, 4 buttons -->
+            </div>
+             <div class="button-group wickets">
+                <h4>Wickets:</h4>
+                <button class="scoring-button" data-event-type="wicket" data-value="W">Wicket</button>
+                <!-- Run Out controls (Extra Credit) -->
+                <div class="run-out-controls">
+                    <button class="scoring-button" data-event-type="run_out" data-value="RO">Run Out</button>
+                    <!-- These might appear only after clicking Run Out -->
+                    <!-- <label for="runOutCompletedRuns">Runs:</label>
+                    <input type="number" id="runOutCompletedRuns" min="0" max="6" value="0" style="width: 50px;">
+                    <label>Who Out?</label>
+                    <select id="runOutBatterSelect">
+                         <option value="striker">Striker</option>
+                         <option value="nonstriker">Non-Striker</option>
+                    </select> -->
+                </div>
+            </div>
+        </section>
+
+         <!-- Live Commentary Section (Extra Credit) -->
+        <section class="commentary-feed">
+            <h3>Live Commentary</h3>
+            <div id="commentaryDisplay" class="commentary-box">
+                <!-- Commentary lines will be added here by JS -->
+                <p>Match commentary will appear here...</p>
+            </div>
+        </section>
+
+        <!-- Navigation Section -->
+        <footer class="navigation">
+            <button id="gotoScorecardButton">View Full Scorecard</button>
+            <!-- Maybe add an Undo button here later? -->
+        </footer>
+
+    </div> <!-- End of .live-container -->
+
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Full Scorecard - Howzatt! Cricket Scorekeeper</title>
+    <!-- Link to specific CSS for this page -->
+    <link rel="stylesheet" href="scorecard.css">
+    <!-- Link to the main JavaScript file -->
+    <script src="score.js" defer></script>
+</head>
+<body>
+
+    <!-- Main container for the scorecard view -->
+    <main id="scorecardContainer" class="scorecard-container">
+
+        <h1>Full Scorecard</h1>
+
+        <!-- Button to navigate back to the live scoring page -->
+        <div class="navigation-header">
+            <button id="gotoLiveButton"> ← Back to Live Scoring</button>
+        </div>
+
+        <!-- Section for Innings 1 Scorecard -->
+        <section id="innings1Section" class="innings-section">
+            <h2 id="innings1Title">Innings 1: Team A</h2>
+            <!-- Batting Scorecard for Innings 1 -->
+            <div class="scorecard-table-wrapper">
+                <h3>Batting</h3>
+                <table id="innings1BattingTable">
+                    <thead>
+                        <tr>
+                            <th>Batter</th>
+                            <th>Dismissal</th>
+                            <th>Runs</th>
+                            <th>Balls</th>
+                            <th>4s</th>
+                            <th>6s</th>
+                            <th>SR</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Batting rows will be populated by JS -->
+                        <!-- Example Row:
+                        <tr>
+                            <td>V. Kohli</td>
+                            <td>c Player B b Player X</td>
+                            <td>55</td>
+                            <td>40</td>
+                            <td>6</td>
+                            <td>1</td>
+                            <td>137.50</td>
+                        </tr>
+                        -->
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="2">Extras</td>
+                            <td id="innings1Extras" colspan="5">0 (Wd: 0, Nb: 0, B: 0, Lb: 0)</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">Total</td>
+                            <td id="innings1TotalScore" colspan="5">0/0 (0.0 Overs)</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+             <!-- Bowling Scorecard for Innings 1 (Bowlers from Team B) -->
+            <div class="scorecard-table-wrapper">
+                <h3>Bowling</h3>
+                <table id="innings1BowlingTable">
+                    <thead>
+                        <tr>
+                            <th>Bowler</th>
+                            <th>Overs</th>
+                            <th>Maidens</th>
+                            <th>Runs</th>
+                            <th>Wkts</th>
+                            <th>Econ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Bowling rows will be populated by JS -->
+                         <!-- Example Row:
+                        <tr>
+                            <td>J. Bumrah</td>
+                            <td>4.0</td>
+                            <td>0</td>
+                            <td>25</td>
+                            <td>2</td>
+                            <td>6.25</td>
+                        </tr>
+                         -->
+                    </tbody>
+                </table>
+            </div>
+
+             <!-- Fall of Wickets for Innings 1 -->
+             <div class="fow-section">
+                 <h4>Fall of Wickets:</h4>
+                 <p id="innings1Fow">(Not Yet Available)</p> <!-- e.g., 25/1 (V. Kohli, 4.2 ov), 80/2 (...) -->
+             </div>
+        </section>
+
+        <!-- Section for Innings 2 Scorecard (Initially hidden if match just started) -->
+        <section id="innings2Section" class="innings-section" style="display: none;"> <!-- Hide initially -->
+            <h2 id="innings2Title">Innings 2: Team B</h2>
+             <!-- Batting Scorecard for Innings 2 -->
+             <div class="scorecard-table-wrapper">
+                <h3>Batting</h3>
+                <table id="innings2BattingTable">
+                    <thead>
+                         <tr><th>Batter</th><th>Dismissal</th><th>Runs</th><th>Balls</th><th>4s</th><th>6s</th><th>SR</th></tr>
+                    </thead>
+                    <tbody><!-- Populated by JS --></tbody>
+                    <tfoot>
+                        <tr><td colspan="2">Extras</td><td id="innings2Extras" colspan="5">0 (Wd: 0, Nb: 0, B: 0, Lb: 0)</td></tr>
+                        <tr><td colspan="2">Total</td><td id="innings2TotalScore" colspan="5">0/0 (0.0 Overs)</td></tr>
+                    </tfoot>
+                </table>
+            </div>
+
+             <!-- Bowling Scorecard for Innings 2 (Bowlers from Team A) -->
+             <div class="scorecard-table-wrapper">
+                <h3>Bowling</h3>
+                <table id="innings2BowlingTable">
+                    <thead>
+                        <tr><th>Bowler</th><th>Overs</th><th>Maidens</th><th>Runs</th><th>Wkts</th><th>Econ</th></tr>
+                    </thead>
+                    <tbody><!-- Populated by JS --></tbody>
+                </table>
+            </div>
+
+             <!-- Fall of Wickets for Innings 2 -->
+             <div class="fow-section">
+                 <h4>Fall of Wickets:</h4>
+                 <p id="innings2Fow">(Not Yet Available)</p>
+             </div>
+        </section>
+
+    </main> <!-- End of .scorecard-container -->
+
+</body>
+</html>
